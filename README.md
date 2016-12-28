@@ -1,2 +1,2 @@
 # acm_cheat_sheet
-Important algorithms implementation for ACM competition .
+Important algorithm implementations for ACM competition .
