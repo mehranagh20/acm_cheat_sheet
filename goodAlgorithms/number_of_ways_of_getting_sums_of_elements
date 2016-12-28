@@ -1,0 +1,10 @@
+Given K elements 1..K, you can calculate the number of ways to make various sums of those values using a typical knapsack algorithm:
+  initialize array ways[0..Max] to all zeros
+  ways[0] = 1
+  for each i from 1 upto K do
+    for each sum s from max downto element i do
+      ways[s] += ways[s - element i]
+At the end of these loops, ways[s] contains the number of ways to choose elements that sum to s.
+
+----------------------------------------------------------------------------------------
+synthetic division, polinomial / (x - k)
