@@ -112,7 +112,7 @@ ll numPF(ll n) {
 ll numDiffPF(ll n) {
     ll PF_idx = 0, PF = primes[PF_idx], ans = 0;
     while (PF * PF <= n) {
-        int power = 0
+        int power = 0;
         while (n % PF == 0) {
             n /= PF;
             power++;
