@@ -13,13 +13,11 @@ bool areEqualPoints(dd p1, dd p2){
     return (fabs(p1.first - p2.first) < eps && fabs(p1.second - p2.second) < eps);
 }
 
-
 //distance of points (Euclidean distance)
 double dist(dd p1, dd p2){
     // hypot(dx, dy) returns sqrt(dx * dx + dy * dy)
     return hypot(p1.first - p2.first, p1.second - p2.second);
 }
-
 
 // rotate p by theta degrees CCW(counter clock wise) w.r.t origin (0, 0)
 dd rotate(dd p, double theta) {
