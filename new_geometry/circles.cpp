@@ -24,8 +24,7 @@ double sectorArea(double r, double theta){ return (theta / 360.0) * (pi * r * r)
 // Segment of a circle is defined as a region of the circle enclosed
 // by a chord and an arc lying between the chord’s endpoints
 double segmentArea(double r, double theta){
-    double rad = degToRad(theta);
-    return sectorArea(r, theta) - (r * r * sin(rad) / 2);
+    return sectorArea(r, theta) - (r * r * sin(degToRad(theta)) / 2);
 }
 
 // to get the other center, reverse p1 and p2
