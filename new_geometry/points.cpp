@@ -1,6 +1,5 @@
 // unit conversion
 double degToRad(double theta){ return theta * pi / 180.0; }
-
 double radToDeg(double theta){ return theta * 180.0 / pi; }
 
 // implementation: dd
