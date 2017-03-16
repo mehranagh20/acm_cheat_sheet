@@ -19,10 +19,10 @@ double rInCircle(double a, double b, double c) {
     return triangleArea(a, b, c) / (0.5 * (a + b + c));
 }
 
-// uses: inCircle -> circles AND pointsToLine, areIntersect -> lines
+// uses: rInCircle -> triangles AND pointsToLine, areIntersect -> lines
 // uses: translate, scale, toVec -> vectors AND dist -> points
 // returns true if there is an inCircle center, returns false otherwise
-// if this function returns 1, ctr will be the inCircle center
+// if this function returns true, ctr will be the inCircle center
 // and r is the same as rInCircle
 bool inCircle(dd p1, dd p2, dd p3, dd &ctr, double &r) {
     r = rInCircle(dist(p1, p2), dist(p2, p3), dist(p3, p1));
@@ -37,8 +37,7 @@ bool inCircle(dd p1, dd p2, dd p3, dd &ctr, double &r) {
     p = translate(p1, scale(toVec(p1, p3), ratio / (1 + ratio)));
     pointsToLine(p2, p, l2);
     
-    areIntersect(l1, l2, ctr); // get their intersection point
-    return true;
+    return areIntersect(l1, l2, ctr); // get their intersection point;
 }
 
 // uses: triangleArea -> triangles
@@ -48,9 +47,41 @@ double rCircumCircle(double a, double b, double c) {
     return a * b * c / (4.0 * triangleArea(a, b, c));
 }
 
+// uses: dist -> points AND pointsToLine, pointSlopeToLine, areIntersect -> lines
+// returns true if there is an inCircle center, returns false otherwise
+// if this function returns true, ctr will be the inCircle center
+// and r is the same as rInCircle
+bool circumCircle(dd p1, dd p2, dd p3, dd &ctr, double &r){
+    r = rCircumCircle(dist(p1, p2), dist(p2, p3), dist(p3, p1));
+    if (fabs(r) < eps) return false; // no circumCircle center
+    
+    ddd l1, l2, l;
+    dd p((p1.first + p2.first) / 2, (p1.second + p2.second) / 2);
+    pointsToLine(p1, p2, l);
+    
+    if(fabs(l.first.first) < eps) // Horizontal line
+        l1.first.first = 1, l1.first.second = 0, l1.second = -p.first;
+    else if(fabs(l.first.second) < eps) // Vertical line
+        pointSlopeToLine(p, 0, l1);
+    else
+        pointSlopeToLine(p, 1 / l.first.first, l1);
+    
+    p = dd((p1.first + p3.first) / 2, (p1.second + p3.second) / 2);
+    pointsToLine(p1, p3, l);
+    
+    if(fabs(l.first.first) < eps) // Horizontal line
+        l2.first.first = 1, l2.first.second = 0, l2.second = -p.first;
+    else if(fabs(l.first.second) < eps) // Vertical line
+        pointSlopeToLine(p, 0, l2);
+    else
+        pointSlopeToLine(p, 1 / l.first.first, l2);
+    
+    return areIntersect(l1, l2, ctr);
+}
+
 // Cosine Formula
 // uses: radToDeg -> points
-// returns angle between sides: a, b in triangle with 3rd side c
+// returns angle between sides in DEG: a, b in triangle with 3rd side c
 double CosineFormula(double a, double b, double c){
     double theta = acos(((a * a) + (b * b) - (c * c)) / (2 * a * b));
     return radToDeg(theta);
