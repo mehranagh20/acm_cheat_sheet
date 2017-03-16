@@ -1,11 +1,7 @@
 // unit conversion
-double degToRad(double theta){
-    return theta * pi / 180.0;
-}
+double degToRad(double theta){ return theta * pi / 180.0; }
 
-double radToDeg(double theta){
-    return theta * 180.0 / pi;
-}
+double radToDeg(double theta){ return theta * 180.0 / pi; }
 
 // implementation: dd
 // testing equality in dd points
