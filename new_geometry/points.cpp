@@ -19,6 +19,7 @@ double dist(dd p1, dd p2){
     return hypot(p1.first - p2.first, p1.second - p2.second);
 }
 
+// uses: degToRad --> points
 // rotate p by theta degrees CCW(counter clock wise) w.r.t origin (0, 0)
 dd rotate(dd p, double theta) {
     double rad = degToRad(theta);
