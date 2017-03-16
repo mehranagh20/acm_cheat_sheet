@@ -5,10 +5,8 @@
 // converts 2 points to vector a->b
 dd toVec(dd a, dd b) { return dd(b.first - a.first, b.second - a.second); }
 
-// nonnegative s = [<1 .. 1 .. >1]
-dd scale(dd v, double s) {
-    return dd(v.first * s, v.second * s); // shorter.same.longer
-}
+// nonnegative s = [<1 (shorter).. 1 (same).. >1 (longer)]
+dd scale(dd v, double s) { return dd(v.first * s, v.second * s); }
 
 // translate(move) p according to v
 dd translate(dd p, dd v) { return dd(p.first + v.first , p.second + v.second); }
@@ -77,11 +75,12 @@ void reflectionPoint(ddd l, dd p, dd &ans) {
     ans = translate(translate(p, v), v); // translate p twice
 }
 
-// uses toVec, norm_sq -> vectors
+// uses toVec, norm_sq -> vectors AND radToDeg -> points
 // NOTE!: returns angle aob in DEG
 double angle(dd a, dd o, dd b) {
     dd oa = toVec(o, a), ob = toVec(o, b);
-    return acos(dot(oa, ob) / sqrt(norm_sq(oa) * norm_sq(ob)));
+    double ans =  acos(dot(oa, ob) / sqrt(norm_sq(oa) * norm_sq(ob)));
+    return radToDeg(ans);
 }
 
 // cross product
@@ -95,4 +94,3 @@ bool ccw(dd p, dd q, dd r) { return cross(toVec(p, q), toVec(p, r)) > 0; }
 // uses: corss -> vectors
 // returns true if point r is on the same line as the line pq
 bool collinear(dd p, dd q, dd r) { return fabs(cross(toVec(p, q), toVec(p, r))) < eps; }
-
