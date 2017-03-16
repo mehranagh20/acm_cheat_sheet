@@ -7,6 +7,7 @@ double radToDeg(double theta){
     return theta * 180.0 / pi;
 }
 
+// implementation: dd
 // testing equality in dd points
 bool areEqualPoints(dd p1, dd p2){
     return (fabs(p1.first - p2.first) < eps && fabs(p1.second - p2.second) < eps);
