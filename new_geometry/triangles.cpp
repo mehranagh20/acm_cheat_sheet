@@ -56,25 +56,24 @@ bool circumCircle(dd p1, dd p2, dd p3, dd &ctr, double &r){
     if (fabs(r) < eps) return false; // no circumCircle center
     
     ddd l1, l2, l;
+    double &a = l.first.first, &b = l.first.second;
     dd p((p1.first + p2.first) / 2, (p1.second + p2.second) / 2);
     pointsToLine(p1, p2, l);
     
-    if(fabs(l.first.first) < eps) // Horizontal line
+    if(fabs(a) < eps) // Horizontal line
         l1.first.first = 1, l1.first.second = 0, l1.second = -p.first;
-    else if(fabs(l.first.second) < eps) // Vertical line
+    else if(fabs(b) < eps) // Vertical line
         pointSlopeToLine(p, 0, l1);
-    else
-        pointSlopeToLine(p, 1 / l.first.first, l1);
+    else pointSlopeToLine(p, 1 / a, l1);
     
     p = dd((p1.first + p3.first) / 2, (p1.second + p3.second) / 2);
     pointsToLine(p1, p3, l);
     
-    if(fabs(l.first.first) < eps) // Horizontal line
+    if(fabs(a) < eps) // Horizontal line
         l2.first.first = 1, l2.first.second = 0, l2.second = -p.first;
-    else if(fabs(l.first.second) < eps) // Vertical line
+    else if(fabs(b) < eps) // Vertical line
         pointSlopeToLine(p, 0, l2);
-    else
-        pointSlopeToLine(p, 1 / l.first.first, l2);
+    else pointSlopeToLine(p, 1 / a, l2);
     
     return areIntersect(l1, l2, ctr);
 }

@@ -31,12 +31,13 @@ double segmentArea(double r, double theta){
 // Determines the location of the centers (c1 and c2) of the two possible circles
 // Given 2 points on the circle (p1 and p2) and radius r of the corresponding circle
 bool circle2PtsRad(dd p1, dd p2, double r, dd &c) {
-    double d2 = pow((p1.first - p2.first), 2) +  pow((p1.second - p2.second), 2);
+    double &x1 = p1.first, &y1 = p1.second, &x2 = p2.first, &y2 = p2.second;
+    double d2 = pow((x1 - x2), 2) +  pow((y1 - y2), 2);
     double det = r * r / d2 - 0.25;
     if (det < 0.0) return false;
     
     double h = sqrt(det);
-    c.first = (p1.first + p2.first) * 0.5 + (p1.second - p2.second) * h;
-    c.second = (p1.second + p2.second) * 0.5 + (p2.first - p1.first) * h;
-    return true;
+    c.first = (x1 + x2) / 2 + (y1 - y2) * h;
+    c.second = (y1 + y2) / 2 + (x2 - x1) * h;
+    return true; // to get the other center, reverse p1 and p2
 }

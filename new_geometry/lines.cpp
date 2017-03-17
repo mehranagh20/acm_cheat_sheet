@@ -5,22 +5,23 @@
 
 // the answer is stored in the third parameter (pass by reference)
 void pointsToLine(dd p1, dd p2, ddd &l) {
-    if (fabs(p1.first - p2.first) < eps) { // vertical line is fine
-        l.first.first = 1.0; l.first.second = 0.0; l.second = -p1.first;
-    }
+    double &a = l.first.first, &b = l.first.second, &c = l.second;
+    double &x1 = p1.first, &y1 = p1.second, &x2 = p2.first;
+    
+    if (fabs(x1 - x2) < eps) // vertical line is fine
+        a = 1.0, b = 0.0, c = -x1;
     
     else {
-        l.first.first = -(p1.second - p2.second) / (p1.first - p2.first);
-        l.first.second = 1.0; // IMPORTANT: we fix the value of b to 1.0
-        l.second = -(l.first.first * p1.first) - p1.second;
+        a = -(y1 - p2.second) / (x1 - x2);
+        b = 1.0; // IMPORTANT: we fix the value of b to 1.0
+        c = -(a * x1) - y1;
     }
 }
 
-// convert point and gradient/slope to line
-// y = mx + c --> ax + by + c = 0
+// convert point and gradient/slope to line. y = mx + c --> ax + by + c = 0
 void pointSlopeToLine(dd p, double m, ddd &l) {
-    l.first.first = -m; l.first.second = 1;
-    l.second = -((l.first.first * p.first) + (l.first.second * p.second));
+    double &a = l.first.first, &b = l.first.second, &c = l.second;
+    a = -m, b = 1, c = -((a * p.first) + (b * p.second));
 }
 
 // check coefficients a & b
@@ -38,16 +39,15 @@ bool areSame(ddd l1, ddd l2) {
 // uses: areParallel -> lines
 // returns true (+ intersection point) if two lines are intersect
 bool areIntersect(ddd l1, ddd l2, dd &p) {
+    double &a1 = l1.first.first, &b1 = l1.first.second, &c1 = l1.second;
+    double &a2 = l2.first.first, &b2 = l2.first.second, &c2 = l2.second;
+    double &x = p.first, &y = p.second;
     if (areParallel(l1, l2)) return false; // no intersection
     
     // solve system of 2 linear algebraic equations with 2 unknowns
-    p.first = (l2.first.second * l1.second - l1.first.second * l2.second) /
-    (l2.first.first * l1.first.second - l1.first.first * l2.first.second);
+    x = (b2 * c1 - b1 * c2) / (a2 * b1 - a1 * b2);
     
     // special case: test for vertical line to avoid division by zero
-    if (fabs(l1.first.second) > eps)
-        p.second = -(l1.first.first * p.first + l1.second);
-    else
-        p.second = -(l2.first.first * p.first + l2.second);
+    y = -(fabs(b1) > eps ? a1 * x + c1 : a2 * x + c2);
     return true;
 }
