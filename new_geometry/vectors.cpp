@@ -91,6 +91,6 @@ double cross(dd a, dd b) { return a.first * b.second - a.second * b.first; }
 // The left turn test is more famously known as the CCW (Counter Clockwise) Test.
 bool ccw(dd p, dd q, dd r) { return cross(toVec(p, q), toVec(p, r)) > 0; }
 
-// uses: corss -> vectors
+// uses: corss, toVec -> vectors
 // returns true if point r is on the same line as the line pq
 bool collinear(dd p, dd q, dd r) { return fabs(cross(toVec(p, q), toVec(p, r))) < eps; }
