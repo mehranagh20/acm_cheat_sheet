@@ -64,8 +64,7 @@ bool circumCircle(dd p1, dd p2, dd p3, dd &ctr, double &r){
         l1.first.first = 1, l1.first.second = 0, l1.second = -p.first;
     else if(fabs(b) < eps) // Vertical line
         pointSlopeToLine(p, 0, l1);
-    else
-        pointSlopeToLine(p, 1 / a, l1);
+    else pointSlopeToLine(p, 1 / a, l1);
     
     p = dd((p1.first + p3.first) / 2, (p1.second + p3.second) / 2);
     pointsToLine(p1, p3, l);
@@ -74,8 +73,7 @@ bool circumCircle(dd p1, dd p2, dd p3, dd &ctr, double &r){
         l2.first.first = 1, l2.first.second = 0, l2.second = -p.first;
     else if(fabs(b) < eps) // Vertical line
         pointSlopeToLine(p, 0, l2);
-    else
-        pointSlopeToLine(p, 1 / a, l2);
+    else pointSlopeToLine(p, 1 / a, l2);
     
     return areIntersect(l1, l2, ctr);
 }
