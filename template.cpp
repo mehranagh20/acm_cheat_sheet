@@ -25,12 +25,10 @@ typedef vector<vector<viii>> vvviii;
 typedef vector<vector<iii>> vviii;
 typedef set<int> si;
 typedef vector<si> vsi;
-typedef pair<double, double> dd;
-typedef vector<dd> vdd;
 
 #define inf 1000000000
 #define eps 1e-9
-#define pi acos(-1.0) // alternative #define PI (2.0 * acos(0.0))
+#define pi acos(-1.0) // alternative #define pi (2.0 * acos(0.0))
 
 int main() {
     ios::sync_with_stdio(0);
