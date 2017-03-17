@@ -29,7 +29,7 @@ double distToLine(dd p, dd a, dd b, dd &c) {
     return dist(p, c); // Euclidean distance between p and c
 }
 
-// uses: toVec, dot, norm_sq, translate, scale -> vectors AND dist -> points
+// uses: toVec, dot, norm_sq, translate, scale, distToLine -> vectors AND dist -> points
 // returns the distance from p to the line segment ab defined by
 // two points a and b (still OK if a == b)
 // the closest point is stored in the 4th parameter (by reference)
