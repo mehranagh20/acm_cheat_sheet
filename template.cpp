@@ -25,8 +25,6 @@ typedef vector<vector<viii>> vvviii;
 typedef vector<vector<iii>> vviii;
 typedef set<int> si;
 typedef vector<si> vsi;
-typedef pair<double, double> dd;
-typedef vector<dd> vdd;
 
 #define inf 1000000000
 #define eps 1e-9
