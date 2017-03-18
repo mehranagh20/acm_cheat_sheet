@@ -19,25 +19,20 @@ double rInCircle(double a, double b, double c) {
     return triangleArea(a, b, c) / (0.5 * (a + b + c));
 }
 
-// uses: rInCircle -> triangles AND pointsToLine, areIntersect -> lines
-// uses: translate, scale, toVec -> vectors AND dist -> points
-// returns true if there is an inCircle center, returns false otherwise
-// if this function returns true, ctr will be the inCircle center
-// and r is the same as rInCircle
-bool inCircle(dd p1, dd p2, dd p3, dd &ctr, double &r) {
-    r = rInCircle(dist(p1, p2), dist(p2, p3), dist(p3, p1));
-    if (fabs(r) < eps) return false; // no inCircle center
-    
-    ddd l1, l2; // compute these two angle bisectors
-    double ratio = dist(p1, p2) / dist(p1, p3);
-    dd p = translate(p2, scale(toVec(p2, p3), ratio / (1 + ratio)));
-    pointsToLine(p1, p, l1);
-    
-    ratio = dist(p2, p1) / dist(p2, p3);
-    p = translate(p1, scale(toVec(p1, p3), ratio / (1 + ratio)));
-    pointsToLine(p2, p, l2);
-    
-    return areIntersect(l1, l2, ctr); // get their intersection point;
+// uses: triangleArea, rInCircle -> triangles
+// returns true if triangle with sides a, b, c has incircle
+// overload: hasInCircle(dist(a, b), dist(b, c), dist(c, a)) if a, b, c are coordinates
+bool hasInCircle(double a, double b, double c){
+    return fabs(rInCircle(a, b, c)) >= eps;
+}
+
+// returns center of inCircle. NOTE: incircle existance maybe needs to be checked
+dd inCircle(dd p1, dd p2, dd p3) {
+    dd ctr;
+    double a = dist(p2, p3), b = dist(p1, p3), c = dist(p1, p2);
+    ctr.first = (a * p1.first + b * p2.first + c * p3.first) / (a + b + c);
+    ctr.second = (a * p1.second + b * p2.second + c * p3.second) / (a + b + c);
+    return ctr;
 }
 
 // uses: triangleArea -> triangles
@@ -47,35 +42,26 @@ double rCircumCircle(double a, double b, double c) {
     return a * b * c / (4.0 * triangleArea(a, b, c));
 }
 
-// uses: dist -> points AND pointsToLine, pointSlopeToLine, areIntersect -> lines
-// returns true if there is an inCircle center, returns false otherwise
-// if this function returns true, ctr will be the inCircle center
-// and r is the same as rInCircle
-bool circumCircle(dd p1, dd p2, dd p3, dd &ctr, double &r){
-    r = rCircumCircle(dist(p1, p2), dist(p2, p3), dist(p3, p1));
-    if (fabs(r) < eps) return false; // no circumCircle center
+// uses: triangleArea, rCircumCircle -> triangles
+// returns true if triangle with sides a, b, c has circumCircle
+// overload: hasInCircumCircle(dist(a, b), dist(b, c), dist(c, a)) if a, b, c are coordinates
+bool hasInCircumCircle(double a, double b, double c){
+    return fabs(rCircumCircle(a, b, c)) >= eps;
+}
+
+// returns center of circumCircle. NOTE: circumCircle existance maybe needs to be checked
+dd circumCircle(dd p1, dd p2, dd p3){
+    double x1 = p1.first, y1 = p1.second, x2 = p2.first, y2 = p2.second;
+    double x3 = p3.first, y3 = p3.second;
     
-    ddd l1, l2, l;
-    double &a = l.first.first, &b = l.first.second;
-    dd p((p1.first + p2.first) / 2, (p1.second + p2.second) / 2);
-    pointsToLine(p1, p2, l);
+    double a1 = 2 * (x2 - x1), b1 = 2 * (y2 - y1), c1 = x2 * x2 + y2 * y2 - x1 * x1 - y1 * y1;
+    double a2 = 2 * (x3 - x1), b2 = 2 * (y3 - y1), c2 = x3 * x3 + y3 * y3 - x1 * x1 - y1 * y1;
+    double d = a1 * b2 - b1 * a2;
     
-    if(fabs(a) < eps) // Horizontal line
-        l1.first.first = 1, l1.first.second = 0, l1.second = -p.first;
-    else if(fabs(b) < eps) // Vertical line
-        pointSlopeToLine(p, 0, l1);
-    else pointSlopeToLine(p, 1 / a, l1);
-    
-    p = dd((p1.first + p3.first) / 2, (p1.second + p3.second) / 2);
-    pointsToLine(p1, p3, l);
-    
-    if(fabs(a) < eps) // Horizontal line
-        l2.first.first = 1, l2.first.second = 0, l2.second = -p.first;
-    else if(fabs(b) < eps) // Vertical line
-        pointSlopeToLine(p, 0, l2);
-    else pointSlopeToLine(p, 1 / a, l2);
-    
-    return areIntersect(l1, l2, ctr);
+    dd ctr;
+    ctr.first = (c1 * b2 - b1 * c2) / d;
+    ctr.second = (a1 * c2 - c1 * a2) / d;
+    return ctr;
 }
 
 // Cosine Formula
