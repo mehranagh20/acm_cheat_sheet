@@ -29,7 +29,7 @@ double distToLine(dd p, dd a, dd b, dd &c) {
     return dist(p, c); // Euclidean distance between p and c
 }
 
-// uses: toVec, dot, norm_sq, translate, scale -> vectors AND dist -> points
+// uses: toVec, dot, norm_sq, translate, scale, distToLine -> vectors AND dist -> points
 // returns the distance from p to the line segment ab defined by
 // two points a and b (still OK if a == b)
 // the closest point is stored in the 4th parameter (by reference)
@@ -91,6 +91,6 @@ double cross(dd a, dd b) { return a.first * b.second - a.second * b.first; }
 // The left turn test is more famously known as the CCW (Counter Clockwise) Test.
 bool ccw(dd p, dd q, dd r) { return cross(toVec(p, q), toVec(p, r)) > 0; }
 
-// uses: corss -> vectors
+// uses: corss, toVec -> vectors
 // returns true if point r is on the same line as the line pq
 bool collinear(dd p, dd q, dd r) { return fabs(cross(toVec(p, q), toVec(p, r))) < eps; }
