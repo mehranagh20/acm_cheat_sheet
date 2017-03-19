@@ -86,10 +86,15 @@ double angle(dd a, dd o, dd b) {
 // cross product
 double cross(dd a, dd b) { return a.first * b.second - a.second * b.first; }
 
-// uses: cross -> vectors
+double cross(dd O, dd A, dd B) {
+    return (A.first - O.first) * (B.second - O.second) -
+            (A.second - O.second) * (B.first - O.first);
+}
+
+// uses: cross, toVec -> vectors
 // returns true if point r is on the left side of line pq
 // The left turn test is more famously known as the CCW (Counter Clockwise) Test.
-bool ccw(dd p, dd q, dd r) { return cross(toVec(p, q), toVec(p, r)) > 0; }
+bool ccw(dd p, dd q, dd r) { return cross(toVec(p, q), toVec(p, r)) > eps; }
 
 // uses: corss, toVec -> vectors
 // returns true if point r is on the same line as the line pq

@@ -51,3 +51,13 @@ bool areIntersect(ddd l1, ddd l2, dd &p) {
     y = -(fabs(b1) > eps ? a1 * x + c1 : a2 * x + c2);
     return true;
 }
+
+// line segment p-q intersect with line A-B.
+dd lineIntersectSeg(dd p, dd q, dd A, dd B) {
+    double px = p.first, py = p.second, qx = q.first, qy = q.second;
+    double a = B.second - A.second, b = A.first - B.first;
+    double c = B.first * A.second - A.first * B.second;
+    double u = fabs(a * px + b * py + c);
+    double v = fabs(a * qx + b * qy + c);
+    return dd((px * v + qx * u) / (u + v), (py * v + qy * u) / (u + v));
+}
