@@ -29,6 +29,9 @@ typedef vector<si> vsi;
 #define inf 1000000000
 #define eps 1e-9
 #define pi acos(-1.0) // alternative #define pi (2.0 * acos(0.0))
+#define F first
+#define S second
+#define pb push_back
 
 int main() {
     ios::sync_with_stdio(0);
