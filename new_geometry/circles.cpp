@@ -4,7 +4,7 @@
 
 // test point p relation to circle with c as center and r radius
 // returns 0 -> inside, 1 -> border, 2 -> outside
-int insideCircle(dd p, dd c, int r) {
+int insideCircle(dd p, dd c, double r) {
     double dx = p.first - c.first, dy = p.second - c.second;
     double Euc = dx * dx + dy * dy, rSq = r * r;
     return rSq - Euc > eps ? 0 : (fabs(rSq - Euc) < eps ? 1 : 2);
