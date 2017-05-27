@@ -52,9 +52,9 @@ bool inPolygon(dd pt, const vdd &P) {
     double sum = 0; // assume the first vertex is equal to the last vertex
     for (int i = 0; i < sz - 1; i++) {
         if (ccw(pt, P[i], P[i + 1])) // left turn/ccw
-            sum += angle(P[i], pt, P[i + 1]);
+            sum += degToRad(angle(P[i], pt, P[i + 1]));
         else // right turn/cw
-            sum -= angle(P[i], pt, P[i + 1]);
+            sum -= degToRad(angle(P[i], pt, P[i + 1]));
     }
     return fabs(fabs(sum) - 2 * pi) < eps;
 }
