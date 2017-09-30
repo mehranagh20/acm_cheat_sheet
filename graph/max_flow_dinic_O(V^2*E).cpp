@@ -9,7 +9,7 @@
 
 vi dist, work;
 int s, t, n; //fill s, t, n in main ---> s is start, t is destination and n is number of nodes in graph. 
-vvi rem, graph; //fill graph in main. graph is adjList. also fill rem where it keeps capacity of edjes in n * n space.
+vvi rem, graph; //fill graph in main. graph is adjList. also fill rem where it keeps capacity of edjes in n * n space. edges must be bidictional ?
 //it is possible to use rem to construct the path. if there was a path from i to j then rem[j][i] > 0
 //if rem[j][i] = 0 before running Dinic's so it can change with questions...
 
