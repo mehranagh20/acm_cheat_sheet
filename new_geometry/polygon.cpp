@@ -46,15 +46,14 @@ bool isConvex(const vdd &P) {
 // uses: ccw, cross, toVec, angle, norm_sq -> vectors AND radToDeg -> points
 // returns true if point pt is in either convex/concave polygon P
 bool inPolygon(dd pt, const vdd &P) {
-    int sz = (int)P.size();
-    if (sz <= 3) return false;
+    if ((int)P.size() == 0) return false;
     
     double sum = 0; // assume the first vertex is equal to the last vertex
-    for (int i = 0; i < sz - 1; i++) {
+    for (int i = 0; i < (int)P.size() - 1; i++) {
         if (ccw(pt, P[i], P[i + 1])) // left turn/ccw
-            sum += angle(P[i], pt, P[i + 1]);
+            sum += degToRad(angle(P[i], pt, P[i + 1]));
         else // right turn/cw
-            sum -= angle(P[i], pt, P[i + 1]);
+            sum -= degToRad(angle(P[i], pt, P[i + 1]));
     }
     return fabs(fabs(sum) - 2 * pi) < eps;
 }

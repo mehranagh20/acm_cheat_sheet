@@ -1,6 +1,8 @@
 // finding Strongly Connected Components.
 // numSCC holds the number of strongly connected components
 // fill AdjList with the graph before running tarjanSCC alg.
+//
+// IMP: graph must not have self loops, if it does duplicate scc happens
 
 vi dfs_num, dfs_low, S, visited;
 int dfsNumberCounter, numSCC;

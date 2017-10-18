@@ -1,3 +1,5 @@
+// NOTE: edges must be bidirectional --> fi there is an edge from i to j, there must be an edge from j to i
+
 // to find minimum cut, run flow, the max flow is the value of minimum cut, to find edges
 // we put all reachable vertexes from source with positive weight to S components and all others to C
 // all edges connecting S vertexes to C are in minimum edges vertexes set.
