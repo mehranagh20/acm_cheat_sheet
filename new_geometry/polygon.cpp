@@ -108,3 +108,41 @@ vdd convexHull(vdd P){
     }
     H.resize(k); return H;
 }
+
+
+//for finding the centroid of a polygon
+point compute2DPolygonCentroid(const std::vector<point> vertices) {
+    point centroid;
+    double signedArea = 0.0;
+    double x0 = 0.0; // Current vertex X
+    double y0 = 0.0; // Current vertex Y
+    double x1 = 0.0; // Next vertex X
+    double y1 = 0.0; // Next vertex Y
+    double a = 0.0;  // Partial signed area
+    for (int i = 0; i < vertices.size() - 1; ++i) {
+
+        x0 = vertices[i].x;
+        y0 = vertices[i].y;
+        x1 = vertices[i + 1].x;
+        y1 = vertices[i + 1].y;
+        a = x0 * y1 - x1 * y0;
+        signedArea += a;
+        centroid.x += (x0 + x1) * a;
+        centroid.y += (y0 + y1) * a;
+
+    }
+    x0 = vertices.back().x;
+    y0 = vertices.back().y;
+    x1 = vertices.front().x;
+    y1 = vertices.front().y;
+    a = x0 * y1 - x1 * y0;
+    signedArea += a;
+    centroid.x += (x0 + x1) * a;
+    centroid.y += (y0 + y1) * a;
+
+    signedArea *= 0.5;
+    centroid.x /= (6.0 * signedArea);
+    centroid.y /= (6.0 * signedArea);
+
+    return centroid;
+}
