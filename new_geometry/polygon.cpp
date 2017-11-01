@@ -58,16 +58,18 @@ bool inPolygon(dd pt, const vdd &P) {
     return fabs(fabs(sum) - 2 * pi) < eps;
 }
 
-// uses: collinear, corss, toVec -> vectors
+// uses: collinear, corss, toVec -> vectors, dist -> points
 // returns true if point pt is on convex/concave polygon P
 bool onPolygon(dd pt, const vdd &P){
     int sz = (int)P.size();
     if (sz <= 3) return false;
-    
+
     for (int i = 0; i < sz - 1; ++i)
-        if(collinear(P[i], P[i + 1], pt))
-            return true;
-    
+        if(collinear(P[i], P[i + 1], pt)) {
+            if (fabs(dist(P[i], P[i+1]) - (dist(P[i], pt) + dist(pt, P[i+1]))) < eps)
+                return true;
+        }
+
     return false;
 }
 
