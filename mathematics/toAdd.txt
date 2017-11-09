@@ -1,2 +1,0 @@
-1. division of a poly nomial by another polynomial --> https://en.wikipedia.org/wiki/Polynomial_long_division
-2. floyd finding circle for folmulas.
