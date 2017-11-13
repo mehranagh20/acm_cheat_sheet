@@ -1,3 +1,4 @@
+// NOTE: If these SCCs are contracted (replaced by larger vertices), they form a DAG!
 // finding Strongly Connected Components.
 // numSCC holds the number of strongly connected components
 // fill AdjList with the graph before running tarjanSCC alg.
