@@ -1,3 +1,4 @@
+// NOTE: Bipartite graph has no odd cycle!
 // s holds the starting point of colering.
 // a graph is bipartite if its set of verteces V can be partitioned into two disjoind set so every edge in graph
 // is from one set to another one. (Tree is a bipartite graph, bipartite graph has no odd circles)
@@ -20,4 +21,3 @@
             }
         }
     }
-

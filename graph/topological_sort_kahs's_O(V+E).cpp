@@ -9,16 +9,15 @@ vi indegree(n, 0), vis(n, 0);
 //calculate indegree before running alg.
 
 vi ts;
-std::priority_queue<int, std::vector<int>, std::greater<int> > pQueue; 
-for(int i = 0; i < n; i++) if(!indegree[i]) pQueue.push(i);
-        while(!pQueue.empty()) {
-            int top = pQueue.top();
-            pQueue.pop();
+priority_queue<int, vi, greater<int>> pq; 
+for(int i = 0; i < n; i++) if(!indegree[i]) pq.push(i);
+        while(!pq.empty()) {
+            int top = pq.top(); pq.pop();
             vis[top] = 1;
             ts.push_back(top);
             for(auto &e : graph[top]) {
                 if(vis[e]) continue;
                 indegree[e]--;
-                if(!indegree[e]) pQueue.push(e);
+                if(!indegree[e]) pq.push(e);
             }
         }

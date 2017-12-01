@@ -21,8 +21,8 @@ typedef vector<ii> vii;
 typedef vector<iii> viii;
 typedef vector<vii> vvii;
 typedef vector<vvii> vvvii;
-typedef vector<vector<viii>> vvviii;
-typedef vector<vector<iii>> vviii;
+typedef vector<vector<viii> > vvviii;
+typedef vector<vector<iii> > vviii;
 typedef set<int> si;
 typedef vector<si> vsi;
 
