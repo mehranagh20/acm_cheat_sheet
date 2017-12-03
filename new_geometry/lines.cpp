@@ -38,18 +38,30 @@ bool areSame(ddd l1, ddd l2) {
 
 // uses: areParallel -> lines
 // returns true (+ intersection point) if two lines are intersect
-bool areIntersect(ddd l1, ddd l2, dd &p) {
+bool lineIntersect(ddd l1, ddd l2, dd &p) {
     double &a1 = l1.first.first, &b1 = l1.first.second, &c1 = l1.second;
     double &a2 = l2.first.first, &b2 = l2.first.second, &c2 = l2.second;
     double &x = p.first, &y = p.second;
     if (areParallel(l1, l2)) return false; // no intersection
-    
+
     // solve system of 2 linear algebraic equations with 2 unknowns
     x = (b2 * c1 - b1 * c2) / (a2 * b1 - a1 * b2);
-    
+
     // special case: test for vertical line to avoid division by zero
     y = -(fabs(b1) > eps ? a1 * x + c1 : a2 * x + c2);
     return true;
+}
+
+// uses: lineIntersect, pointsToLine -> lines // dist -> points
+// returns true (+ intersection point) if two segments (a-b) & (m-n) are intersect
+bool segIntersect(dd a, dd b, dd m, dd n, dd &p){
+    ddd l1; pointsToLine(a, b, l1);
+    ddd l2; pointsToLine(m, n, l2);
+
+    if(lineIntersect(l1, l2, p))
+        return (fabs(dist(a, b) - (dist(a, p) + dist(p, b))) < eps);
+    
+    return false;
 }
 
 // line segment p-q intersect with line A-B.
