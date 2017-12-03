@@ -60,7 +60,6 @@ bool segIntersect(dd a, dd b, dd m, dd n, dd &p){
 
     if(lineIntersect(l1, l2, p))
         return (fabs(dist(a, b) - (dist(a, p) + dist(p, b))) < eps);
-    
     return false;
 }
 
