@@ -43,13 +43,12 @@ bool circle2PtsRad(dd p1, dd p2, double r, dd &c) {
 }
 
 dd c1, c2;
-void circleIntersect(double r1, double r2){
+void circleIntersect(double r1, double r2, dd p1, dd p2){
     // R equals the distance of two circle centers
-    // NOTE: edit following line
-    double R = ;
+    double R = dist(p1, p2);
     // (x1, y1) & (x2, y2) are cordinates of 1st & 2nd circle center respectively
-    // NOTE: edit following line
-    double x1 = , y1 = , x2 = , y2 = ;
+    double x1 = p1.first, y1 = p1.second;
+    double x2 = p2.first, y2 = p2.second;
 
     double co1 = (r1 * r1 - r2 * r2) / (2 * R * R);
     double co2 = sqrt(2 * (r1 * r1 + r2 * r2) / (R * R) -
@@ -57,7 +56,6 @@ void circleIntersect(double r1, double r2){
 
     c1.first = (x1 + x2) / 2 + co1 * (x2 - x1) + co2 * (y2 - y1);
     c1.second = (y1 + y2) / 2 + co1 * (y2 - y1) + co2 * (x1 - x2);
-
 
     c2.first = (x1 + x2) / 2 + co1 * (x2 - x1) - co2 * (y2 - y1);
     c2.second = (y1 + y2) / 2 + co1 * (y2 - y1) - co2 * (x1 - x2);
