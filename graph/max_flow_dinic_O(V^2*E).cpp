@@ -1,54 +1,87 @@
-// to find minimum cut, run flow, the max flow is the value of minimum cut, to find edges
-// we put all reachable vertexes from source with positive weight to S components and all others to C
-// all edges connecting S vertexes to C are in minimum edges vertexes set.
+// Adjacency matrix implementation of Dinic's blocking flow algorithm.
+//
+// Running time:
+//     O(|V|^4)
+//
+// INPUT: 
+//     - graph, constructed using AddEdge()
+//     - source
+//     - sink
+//
+// OUTPUT:
+//     - maximum flow value
+//     - To obtain the actual flow, look at positive values only.
 
-// Dinic network max flow algorithm, runs in O(V^2*E) time.
-// efficient for graph with lots of edges.
-// if verteces have capacity as well as edges, simply devide each vertex to two vertex with an edge between them
-// equal to capacity of the vertex
+const int INF = 1000000000;
 
-vi dist, work;
-int s, t, n; //fill s, t, n in main ---> s is start, t is destination and n is number of nodes in graph. 
-vvi rem, graph; //fill graph in main. graph is adjList. also fill rem where it keeps capacity of edjes in n * n space. edges must be bidictional ?
-//it is possible to use rem to construct the path. if there was a path from i to j then rem[j][i] > 0
-//if rem[j][i] = 0 before running Dinic's so it can change with questions...
+struct MaxFlow {
+    int N;
+    vvi cap, flow;
+    vi dad, Q;
 
-bool dinic_bfs() {
-    dist.clear(); dist.resize(n, -1); dist[s] = 0;
-    queue<int> queue1; queue1.push(s);
-    while(!queue1.empty()) {
-        int u = queue1.front(); queue1.pop();
-        for(auto &e : graph[u]) {
-            if(dist[e] != -1 || rem[u][e] <= 0) continue;
-            dist[e] = dist[u] + 1;
-            queue1.push(e);
-        }
+    MaxFlow(int N) :
+            N(N), cap(N, vi(N)), flow(N, vi(N)), dad(N), Q(N) {}
+
+    void AddEdge(int from, int to, int cap) {
+        this->cap[from][to] += cap;
     }
-    return (dist[t] != -1);
-}
 
-int dinic_dfs(int u, int f) {
-    if(u == t) return f;
-    for(int &i = work[u]; i < graph[u].size(); i++) {
-        int v = graph[u][i];
-        if(rem[u][v] <= 0) continue;
-        if(dist[u] + 1 == dist[v]) {
-            int df = dinic_dfs(v, min(f, rem[u][v]));
-            if(df > 0) {
-                rem[v][u] += df;
-                rem[u][v] -= df;
-                return df;
+    int BlockingFlow(int s, int t) {
+        fill(dad.begin(), dad.end(), -1);
+        dad[s] = -2;
+
+        int head = 0, tail = 0;
+        Q[tail++] = s;
+        while (head < tail) {
+            int x = Q[head++];
+            for (int i = 0; i < N; i++) {
+                if (dad[i] == -1 && cap[x][i] - flow[x][i] > 0) {
+                    dad[i] = x;
+                    Q[tail++] = i;
+                }
             }
         }
+
+        if (dad[t] == -1) return 0;
+
+        int totflow = 0;
+        for (int i = 0; i < N; i++) {
+            if (dad[i] == -1) continue;
+            int amt = cap[i][t] - flow[i][t];
+            for (int j = i; amt && j != s; j = dad[j])
+                amt = min(amt, cap[dad[j]][j] - flow[dad[j]][j]);
+            if (amt == 0) continue;
+            flow[i][t] += amt;
+            flow[t][i] -= amt;
+            for (int j = i; j != s; j = dad[j]) {
+                flow[dad[j]][j] += amt;
+                flow[j][dad[j]] -= amt;
+            }
+            totflow += amt;
+        }
+
+        return totflow;
     }
-    return 0;
+
+    int GetMaxFlow(int source, int sink) {
+        int totflow = 0;
+        while (int flow = BlockingFlow(source, sink))
+            totflow += flow;
+        return totflow;
+    }
+};
+
+int main() {
+
+    MaxFlow mf(5);
+    mf.AddEdge(0, 1, 3);
+    mf.AddEdge(0, 2, 4);
+    mf.AddEdge(0, 3, 5);
+    mf.AddEdge(0, 4, 5);
+    mf.AddEdge(1, 2, 2);
+
+    // should print out "15"
+    cout << mf.GetMaxFlow(0, 4) << endl;
 }
 
-int maxFlow() {
-    int result = 0;
-    while(dinic_bfs()) {
-        work.clear(); work.resize(n, 0);
-        while(int d = dinic_dfs(s, inf)) result += d;
-    }
-    return result;
-}
+// END CUT
