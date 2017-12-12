@@ -12,8 +12,6 @@
 //     - maximum flow value
 //     - To obtain the actual flow, look at positive values only.
 
-const int INF = 1000000000;
-
 struct MaxFlow {
     int N;
     vvi cap, flow;
