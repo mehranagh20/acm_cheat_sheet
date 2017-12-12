@@ -23,4 +23,5 @@ void buildRMQ() {
 
 // inside main():
 // H[u] < H[v] (swap u and v otherwise)
+// RMQ must be on array 'L'
 LCA(u, v) = E[RMQ(H[u], H[v])]
