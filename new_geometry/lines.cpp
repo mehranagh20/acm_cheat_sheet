@@ -54,6 +54,7 @@ bool lineIntersect(ddd l1, ddd l2, dd &p) {
 
 // uses: lineIntersect, pointsToLine -> lines // dist -> points
 // returns true (+ intersection point) if two segments (a-b) & (m-n) are intersect
+// has some terrible bugs :)
 bool segIntersect(dd a, dd b, dd m, dd n, dd &p){
     ddd l1; pointsToLine(a, b, l1);
     ddd l2; pointsToLine(m, n, l2);
@@ -61,6 +62,19 @@ bool segIntersect(dd a, dd b, dd m, dd n, dd &p){
     if(lineIntersect(l1, l2, p))
         return (fabs(dist(a, b) - (dist(a, p) + dist(p, b))) < eps);
     return false;
+}
+
+// uses: cross
+bool segIntersect(dd p1, dd p2, dd q1, dd q2){
+  dd t1 = dd(q2.first - q1.first, q2.second - q1.second);
+  dd t2 = dd(p2.first - p1.first, p2.second - p1.second);
+  dd t3 = dd(q1.first - p1.first, q1.second - p1.second);
+
+  double d = cross(t1, t2);
+  if(!d) return p2 == q2;
+
+  double t = cross(t2, t3) / d, s = cross(t1, t3) / d;
+  return 0 <= t && t <= 1 && 0 <= s && s <= 1;
 }
 
 // line segment p-q intersect with line A-B.
