@@ -24,4 +24,8 @@ void buildRMQ() {
 // inside main():
 // H[u] < H[v] (swap u and v otherwise)
 // RMQ must be on array 'L'
-LCA(u, v) = E[RMQ(H[u], H[v])]
+RMQ rmq; rmq.init(L);
+while(cin >> a >> b) { // get LCA of node 'a' and 'b'
+        if(H[a] >= H[b]) swap(a, b);
+        cout << E[rmq.range_minimum_query(H[a], H[b]).second] << endl; // second element of rmq query is the index of min element
+}
