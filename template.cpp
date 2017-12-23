@@ -26,6 +26,9 @@ typedef vector<vector<iii> > vviii;
 typedef set<int> si;
 typedef vector<si> vsi;
 
+#define F(i, n) for(int i = 0; i < n; i++)
+#define F(i, j, n) for(int i = j; i < n; i++)
+
 #define inf 1000000000
 #define eps 1e-9
 #define pi acos(-1.0) // alternative #define pi (2.0 * acos(0.0))
