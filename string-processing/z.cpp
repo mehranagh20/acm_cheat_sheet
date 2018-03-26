@@ -2,17 +2,18 @@
 // O(|s| + |t|)
 
 // t is the pattern you are looking for in s
-vector<int> zf(string s, string t) {
+vi zf(string s, string t) {
+    int n = s.size(), m = t.size();
     s = t + '#' + s;
-    vector<int> z(n + m + 1);
+    vi z(n + m + 1);
     int l = 0, r = 1;
     for (int i = 1; i <= n + m; i++) {
         if (i < r) z[i] = min(z[i - l], r - i);
         while (i + z[i] <= n + m && s[i + z[i]] == s[z[i]]) z[i]++;
         if (i + z[i] > r)
-            tie(l, r) = mp(i, i + z[i]);
+            tie(l, r) = ii(i, i + z[i]);
     }
-    vector<int> ret_z(n);
+    vi ret_z(n);
     forn(i, n) ret_z[i] = z[i + m + 1];
     return ret_z;
 }
