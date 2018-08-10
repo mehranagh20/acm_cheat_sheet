@@ -1,17 +1,14 @@
-long long fast_pow(int a,int n)
-{
-    long long result = 1;
-    long long power = n;
-    long long value = a;
-    while(power>0)
-    {
-        if(power&1)
-            {result = result*value;
-            result = result%1000000007;}
-        value = value*value;
-        value = value%1000000007;
-        power /= 2;
-        //power >>= 1;
+ll pw(ll a, ll b) {
+    if (b == 0) {
+        return 1;
     }
-    return result;
+
+    ll v = pw(a, b / 2);
+    v = (v * v) % MOD;
+
+    if (b & 1) {
+        v = (v * a) % MOD;
+    }
+
+    return v;
 }

@@ -1,2 +1,2 @@
 # acm_cheat_sheet
-Important algorithm implementations for ACM competition .
+Cheat sheet for ACM ICPC, Valar Geekolous.
