@@ -21,7 +21,7 @@ void dfs_sz(int v = 0, int par = 0, int dpth = 0) {
 // nxt[x] ==> head of segment which x belongs to
 // [in[nxt[v]], in[v]] ==> path from head of path which contains 'v' to 'v'
 // [in[v], out[v]) == > subtree of 'v', pay attention to right )
-void dfs_hld(int v = 0, int par = 0, int cst = 0) { // change cst in case of other operations if needed
+void dfs_hld(int v = 0, int par = 0, int cst = -inf) { // change cst in case of other operations if needed
     in[v] = tt++;
     rin[in[v]] = v;
 
