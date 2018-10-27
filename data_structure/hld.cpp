@@ -1,6 +1,6 @@
 const int N = 1e4 + 10; // max of nodes
 int n;
-vvi g; // the tree
+vvii g[N]; // the tree
 ll nxt[N], depth[N], tt, sz[N], in[N], out[N], rin[N], p[N];
 int cst2[N + 10];
 
@@ -47,8 +47,8 @@ ll crawl(ll u, ll v) { // path query
     return max(ans, go(1, 0, n - 1, in[v] + 1, in[u])); // in case of node queries remove +1 because even the head matters
 }
 
-void modify(int a, int b) {
-    upd(1, 0, n - 1, in[a], b); segment tree update
+void modify(int a, int b) { // modify node or edge 'a' to value 'b'
+    upd(1, 0, n - 1, in[a], b); // segment tree update
 }
 
 int main() {
