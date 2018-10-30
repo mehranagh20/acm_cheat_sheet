@@ -60,8 +60,12 @@ sieve(10000000); // can go up to 10^7 (need few seconds)
 * O(log10 n): `n = max(a, b)`
 
 ```cpp
-int gcd(int a, int b) {
-    return b == 0 ? a : gcd(b, a % b);
+long long gcd(long long a, long long b) {
+    while (a > 0 && b > 0) {
+        if (a > b) a %= b;
+        else b %= a;
+    }
+    return a + b;
 }
 int lcm(int a, int b) {
     return a * (b / gcd(a, b));
