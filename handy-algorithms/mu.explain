@@ -1,0 +1,6 @@
+mu[i] = {0 if i contains a prime more than once
+	 1 if i consists of even number of primes
+	 -1 otherwise, ie. odd number of primes}
+mu can be used to count number of things with gcd of 1 using inclution exclution
+to do this: sigma_over_possible_j_as_product_of_primes(mu[j] * f(j))
+where f(j) returns number of things where their gcd is divisible by every elemnt of j's factorization, ie. 'j'.

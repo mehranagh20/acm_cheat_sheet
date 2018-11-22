@@ -4,6 +4,10 @@ public:
     ll mod1;
     hashh(string &str, ll pp = 10, ll mod1 = 1e9 + 21) { // pp is a number bigger than len of different characters in our language, better be a big prime like 1e9 + 7
         // pp is base in case that str is a number for example pp = 10 if str is number
+	// Following two values are reconmended by handbook
+	// Another cnadidate for mod is 972663749
+	// Another candidate for pp is 911382323
+	// if a relatively small prime is needed for hashing you can use 2451671
         this->mod1 = mod1;
         p.assign(str.size() + 100, 1), h.assign(str.size() + 100, 0);
         for(int i = 1; i <= str.size(); i++) {
