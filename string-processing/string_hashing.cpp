@@ -7,6 +7,7 @@ public:
 	// Following two values are reconmended by handbook
 	// Another cnadidate for mod is 972663749
 	// Another candidate for pp is 911382323
+	// some primes 33049, 63073, 107171, 880043, 1027853, 1299827
 	// if a relatively small prime is needed for hashing you can use 2451671
         this->mod1 = mod1;
         p.assign(str.size() + 100, 1), h.assign(str.size() + 100, 0);
