@@ -1,6 +1,6 @@
-// O(VE + V^2√E) , worst case is O(V3)
+// O(VE + V^2√E) , worst case is O(V^3)
 
-int n;
+int n; // # of vertices
 vvi capacity, flow;
 vi height, excess;
 
@@ -12,9 +12,10 @@ void push(int u, int v){
 
 void relabel(int u){
     int d = inf;
-    forn(i, n)
+    forn(i, n){
         if (capacity[u][i] - flow[u][i] > 0)
             d = min(d, height[i]);
+    }
     
     if (d < inf) height[u] = d + 1;
 }
@@ -32,8 +33,7 @@ vi find_max_height_vertices(int s, int t) {
     return max_height;
 }
 
-int max_flow(int s, int t)
-{
+int max_flow(int s, int t){
     height.assign(n, 0); height[s] = n;
     flow.assign(n, vi(n, 0));
     excess.assign(n, 0); excess[s] = inf;
@@ -58,7 +58,6 @@ int max_flow(int s, int t)
     }
 
     int max_flow = 0;
-    for (int i = 0; i < n; i++)
-        max_flow += flow[0][i];
+    forn(i, n) max_flow += flow[0][i];
     return max_flow;
 }
