@@ -36,24 +36,19 @@ vi find_max_height_vertices(int s, int t) {
 int max_flow(int s, int t){
     height.assign(n, 0); height[s] = n;
     flow.assign(n, vi(n, 0));
-    excess.assign(n, 0); excess[s] = inf;
-    
+    excess.assign(n, 0); excess[s] = inf;  
     forn(i, n) if (i != s) push(s, i);
 
     vi current;
-    while (!(current = find_max_height_vertices(s, t)).empty()) {
+    while ((current = find_max_height_vertices(s, t)).size()) {
         for(auto i : current) {
             bool pushed = false;
             for (int j = 0; j < n && excess[i]; j++) {
-                if (capacity[i][j] - flow[i][j] > 0 && height[i] == height[j] + 1) {
-                    push(i, j);
-                    pushed = true;
-                }
+                if (capacity[i][j] - flow[i][j] > 0 && height[i] == height[j] + 1)
+                    push(i, j), pushed = true;   
             }
-            if (!pushed) {
-                relabel(i);
-                break;
-            }
+            
+            if (!pushed) { relabel(i); break; }
         }
     }
 
