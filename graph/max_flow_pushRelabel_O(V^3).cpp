@@ -11,7 +11,7 @@ void push(int u, int v){
 }
 
 void relabel(int u){
-    int d = inf;
+    ll d = inf;
     forn(i, n){
         if (capacity[u][i] - flow[u][i] > 0)
             d = min(d, height[i]);
@@ -33,7 +33,7 @@ vi find_max_height_vertices(int s, int t) {
     return max_height;
 }
 
-int max_flow(int s, int t){
+ll max_flow(int s, int t){
     height.assign(n, 0); height[s] = n;
     flow.assign(n, vi(n, 0));
     excess.assign(n, 0); excess[s] = inf;  
@@ -52,7 +52,7 @@ int max_flow(int s, int t){
         }
     }
 
-    int max_flow = 0;
-    forn(i, n) max_flow += flow[0][i];
+    ll max_flow = 0;
+    forn(i, n) max_flow += flow[s][i];
     return max_flow;
 }
