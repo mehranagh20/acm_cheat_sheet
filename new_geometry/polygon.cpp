@@ -1,6 +1,6 @@
 // POLYGONS
 // Pick's Theorem
-// polygon without self-intersections & if all vertices have integer coordinates in 2D grid
+// polygon without self-intersections & all vertices having integer coordinates in 2D grid
 // Area = I + B/2 - 1. B = # of points lying on polygon sides == (sum of gcd(x_diff, y_diff) on edges)
 // I = number of points with integer coordinates lying strictly inside the polygon
 
