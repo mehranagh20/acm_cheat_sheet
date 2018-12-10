@@ -1,4 +1,8 @@
 // POLYGONS
+// Pick's Theorem
+// polygon without self-intersections & if all vertices have integer coordinates in 2D grid
+// Area = I + B/2 - 1. B = # of points lying on polygon sides == (sum of gcd(x_diff, y_diff) on edges)
+// I = number of points with integer coordinates lying strictly inside the polygon
 
 // Implementation
 // 3 points, entered in counter clockwise order, 0-based indexing
@@ -113,38 +117,28 @@ vdd convexHull(vdd P){
 
 
 //for finding the centroid of a polygon
-point compute2DPolygonCentroid(const std::vector<point> vertices) {
-    point centroid;
-    double signedArea = 0.0;
-    double x0 = 0.0; // Current vertex X
-    double y0 = 0.0; // Current vertex Y
-    double x1 = 0.0; // Next vertex X
-    double y1 = 0.0; // Next vertex Y
-    double a = 0.0;  // Partial signed area
-    for (int i = 0; i < vertices.size() - 1; ++i) {
-
-        x0 = vertices[i].x;
-        y0 = vertices[i].y;
-        x1 = vertices[i + 1].x;
-        y1 = vertices[i + 1].y;
+dd compute2DPolygonCentroid(const vdd P) {
+    dd centroid;
+    double signedArea, x0, y0, x1, y1, a = 0.0;
+    for (int i = 0; i < P.size() - 1; ++i) {
+        x0, y0 = P[i].first, P[i].second;
+        x1, y1 = P[i + 1].first, P[i + 1].second;
         a = x0 * y1 - x1 * y0;
         signedArea += a;
-        centroid.x += (x0 + x1) * a;
-        centroid.y += (y0 + y1) * a;
-
+        centroid.first += (x0 + x1) * a;
+        centroid.second += (y0 + y1) * a;
     }
-    x0 = vertices.back().x;
-    y0 = vertices.back().y;
-    x1 = vertices.front().x;
-    y1 = vertices.front().y;
+    
+    x0, y0 = P.back().first, P.back().second;
+    x1, y1 = P.front().first, P.front().second;
     a = x0 * y1 - x1 * y0;
     signedArea += a;
-    centroid.x += (x0 + x1) * a;
-    centroid.y += (y0 + y1) * a;
+    centroid.first += (x0 + x1) * a;
+    centroid.second += (y0 + y1) * a;
 
     signedArea *= 0.5;
-    centroid.x /= (6.0 * signedArea);
-    centroid.y /= (6.0 * signedArea);
+    centroid.first /= (6.0 * signedArea);
+    centroid.second /= (6.0 * signedArea);
 
     return centroid;
 }
