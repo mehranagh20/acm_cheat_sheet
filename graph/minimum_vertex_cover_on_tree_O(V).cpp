@@ -11,13 +11,13 @@ int MVC(int v, int flag) { // Minimum Vertex Cover
         // Note: ‘Children’ is an Adjacency List that contains the directed version of the tree
         // (parent points to its children; but the children does not point to parents)
         ans = 0;
-        for (int j = 0; j < (int)Children[v].size(); j++)
-            ans += MVC(Children[v][j], 1);
+        for(auto &u: Children[v]) ans += MVC(u, 1);
     }
+    
     else if (flag == 1) {
         ans = 1;
-        for (int j = 0; j < (int)Children[v].size(); j++)
-            ans += min(MVC(Children.[v][j], 1), MVC(Children[v][j], 0));
+        for(auto &u: Children[v])
+            ans += min(MVC(u, 1), MVC(u, 0));
     }
     return memo[v][flag] = ans;
 }
