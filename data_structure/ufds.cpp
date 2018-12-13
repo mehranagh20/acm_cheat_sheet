@@ -3,11 +3,8 @@ public:
     vi p, rank, setSizes;
     int numSets;
 
-    UFDS(int n) {
-        numSets = n;
-        rank.assign(n, 0); p.assign(n, 0);
+    UFDS(int n): numSets(n), rank(n, 0), p(n, 0), setSizes(n, 1) {
         forn(i, n) p[i] = i;
-        setSizes.assign(n, 1);
     }
     int findSet(int i) { return (p[i] == i) ? i : p[i] = findSet(p[i]); }
     bool isSameSet(int i, int j) { return findSet(i) == findSet(j); }
