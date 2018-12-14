@@ -1,3 +1,9 @@
+/**
+ * NOTE:
+ * n^e mod m = n^(φ(m)+(e mod φ(m))) mod m.
+ */
+
+
 ll pw(ll a, ll b) {
     if (b == 0) {
         return 1;
