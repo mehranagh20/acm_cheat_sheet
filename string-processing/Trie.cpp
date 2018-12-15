@@ -35,3 +35,6 @@ void trieDelete(trie *cur, string &str, int ind){
         delete nxt; cur->children.erase(str[ind]);
     }
 }
+
+// inside main
+trie *root = new trie;
