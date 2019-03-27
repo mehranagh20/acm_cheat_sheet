@@ -25,6 +25,7 @@ typedef vector<vii> vvii;
 #define all(a) (a).begin(), (a).end()
 #define inf 1000000000
 #define eps 1e-9
+mt19937 rng32(chrono::steady_clock::now().time_since_epoch().count());
 
 int main() {
     ios::sync_with_stdio(0);

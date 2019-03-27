@@ -5,16 +5,9 @@
 
 
 ll pw(ll a, ll b) {
-    if (b == 0) {
-        return 1;
-    }
-
+    if (b == 0) return 1;
     ll v = pw(a, b / 2);
-    v = (v * v) % MOD;
-
-    if (b & 1) {
-        v = (v * a) % MOD;
-    }
-
+    v = (v * v) % mod;
+    if (b & 1) v = (v * a) % mod;
     return v;
 }
